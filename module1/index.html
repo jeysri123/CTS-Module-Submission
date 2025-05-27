@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Community Event Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Community Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <main class="container mt-4">
+        <!-- Welcome Banner Section -->
+        <div id="welcomeBanner" class="bg-primary text-white p-4 mb-4">
+            <h1>Welcome to Our Community Portal</h1>
+            <p>Join us for exciting local events and activities!</p>
+            <span style="color: #ffeb3b; font-weight: bold;">Special Offer: First event registration is free!</span>
+        </div>
+
+        <!-- Events Section -->
+        <section id="events" class="mb-5">
+            <h2>Upcoming Events</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Community Workshop">
+                        <div class="card-body">
+                            <h5 class="card-title">Community Workshop</h5>
+                            <p class="card-text">Join us for a hands-on workshop on sustainable living.</p>
+                            <button class="btn btn-primary" onclick="registerEvent('workshop')">Register</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Local Concert">
+                        <div class="card-body">
+                            <h5 class="card-title">Local Concert</h5>
+                            <p class="card-text">Enjoy an evening of local music and entertainment.</p>
+                            <button class="btn btn-primary" onclick="registerEvent('concert')">Register</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Food Festival">
+                        <div class="card-body">
+                            <h5 class="card-title">Food Festival</h5>
+                            <p class="card-text">Taste local cuisine and meet community chefs.</p>
+                            <button class="btn btn-primary" onclick="registerEvent('food')">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form Section -->
+        <section id="registration" class="mb-5">
+            <h2>Event Registration</h2>
+            <form id="eventForm" onsubmit="return handleSubmit(event)">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" required autofocus placeholder="Enter your name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label for="eventType" class="form-label">Event Type</label>
+                    <select class="form-select" id="eventType" required onchange="updateFee()">
+                        <option value="">Select an event</option>
+                        <option value="workshop">Community Workshop</option>
+                        <option value="concert">Local Concert</option>
+                        <option value="food">Food Festival</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" rows="3" placeholder="Any special requirements?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <output id="confirmation" class="ms-3"></output>
+            </form>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mb-5">
+            <h2>Contact Us</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form>
+                        <div class="mb-3">
+                            <label for="contactName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="contactEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactMessage" class="form-label">Message</label>
+                            <textarea class="form-control" id="contactMessage" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Location</h5>
+                            <p class="card-text">123 Community Center<br>Your City, State 12345</p>
+                            <button class="btn btn-outline-primary" onclick="findNearbyEvents()">Find Nearby Events</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Community Event Portal</h5>
+                    <p>Bringing our community together through events and activities.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="help.html" target="_blank" class="text-white">Help & Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
+</html> 
